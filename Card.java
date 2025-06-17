@@ -11,13 +11,13 @@ public class Card{
         value = v;
         character = c;
         if(v == 11){
-            character = "J" + s;
+            character = s + "J";
         }
         if(v == 12){
-            character = "Q" + s;
+            character = s + "Q";
         }
         if(v == 13){
-            character = "K" + s;
+            character = s + "K";
         }
         suit = s;
     }
