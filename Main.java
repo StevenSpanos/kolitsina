@@ -19,7 +19,10 @@ public class Main{
             table.add(deck.get(1));
             deck.remove(0);
         }
+        while(1 > 0){
         printTable();
+        turn();
+        }
     }
     
     public static void printTable(){
@@ -74,7 +77,8 @@ public class Main{
             String action = "";
             while(!(action.equals("capture") || action.equals("add") || action.equals("drop"))){
             System.out.println("Capture, Add, or Drop?");
-            action = scanner.nextLine().toLowerCase();
+            action = scanner.nextLine();
+            action.toLowerCase();
             }
             if(action.equals("capture")){
 
