@@ -6,7 +6,7 @@ public class Main{
     public static Player player;
     public static Player ai;
     public static ArrayList<Card> table = new ArrayList<Card>(); 
-    public int round = 0;
+    public static int round = 0;
     public static void main(String[] args){
         createDeck();
         Collections.shuffle(deck);
@@ -64,7 +64,7 @@ public class Main{
         }
     }
 
-    public void turn(){
+    public static void turn(){
         if(round % 2 == 0){
             Scanner scanner = new Scanner(System.in);
             System.out.println("Select the card you want to use.");
@@ -72,7 +72,7 @@ public class Main{
             System.out.println();
             int choice = scanner.nextInt();
             String action = "";
-            while(!(action.equals("capture") && action.equals("add") && action.equals("drop"))){
+            while(!(action.equals("capture") || action.equals("add") || action.equals("drop"))){
             System.out.println("Capture, Add, or Drop?");
             action = scanner.nextLine().toLowerCase();
             }
@@ -85,9 +85,10 @@ public class Main{
             else if(action.equals("drop")){
                 table.add(player.hand.remove(choice));
             }
-        else{
-
         }
-        round++;
+    else{
+
+    }
+    round++;
     }
 }
