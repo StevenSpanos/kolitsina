@@ -2,12 +2,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 public class Main{
     public static ArrayList<Card> deck = new ArrayList<Card>();
-
+    public static Player player;
+    public static Player ai;
+    public static ArrayList<Card> table = new ArrayList<Card>(); 
     public static void main(String[] args){
         createDeck();
         Collections.shuffle(deck);
         for(Card c : deck){
             System.out.println(c.getCharacter());
+        }
+        player = new Player();
+        ai = new Player();
+        for(int i = 0; i < 4; i++){
+            table.add(deck.get(1))
+            deck.remove(0);
         }
     }
     
