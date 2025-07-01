@@ -19,6 +19,12 @@ public class Main{
             table.add(deck.get(1));
             deck.remove(0);
         }
+        if((round != 0) && (player.hand.size() <= 0)){
+            player.deal();
+        }
+        if((round != 0) && (ai.hand.size() <= 0)){
+            ai.deal();
+        }
         while(1 > 0){
         printTable();
         turn();
@@ -29,7 +35,7 @@ public class Main{
         System.out.println("Deck: " + deck.size());
         System.out.println("AI:");
         for(int i = 0; i < ai.hand.size(); i++){
-            System.out.print("[  ]");
+            System.out.print("["+ai.hand.get(i).getCharacter()+"]");
         }
         System.out.println(" ");
         System.out.println("Table:");
@@ -81,7 +87,11 @@ public class Main{
             action.toLowerCase();
             }
             if(action.equals("capture")){
-
+                System.out.println("Which card do you want to capture?");
+                for(int i = 0; i < 4; i++){System.out.print(i + " ");}
+                System.out.println();
+                int cap = scanner.nextInt();
+                capture(cap, choice, player);
             }
             else if(action.equals("add")){
 
@@ -91,8 +101,52 @@ public class Main{
             }
         }
     else{
-
+        aiTurn();
     }
     round++;
+    }
+
+    public static void capture(int cap, int choice, Player player){
+        if(table.get(cap).getValue() == player.hand.get(choice).getValue()){
+            System.out.println("Capture Successful.");
+            player.captured += 2;
+        if(table.remove(cap).getCharacter().substring(0,1).equals("S")){
+            player.spades++;
+        }
+        if(player.hand.remove(cap).getCharacter().substring(0,1).equals("S")){
+            player.spades++;
+        }
+        }
+    }
+
+    public static void aiTurn(){
+        //checks for spades in hand
+        for(int i = 0; i < ai.hand.size(); i++){
+            Card x = ai.hand.get(i);
+            System.out.println("Checking card " + x.getCharacter() + " in AI");
+            if(x.getCharacter().substring(0,1).equals("S")){ //checks spades on table
+                for(int j = 0; j < table.size(); j++){
+                    Card y = table.get(j);
+                    System.out.println("Checking card " + y.getCharacter() + " in Table");
+                    if(y.getValue() == x.getValue()){
+                        capture(i, j, ai);
+                        return;
+                    }
+                }
+            }
+        }
+        //checks for spades in table
+        for(int i = 0; i < table.size(); i++){
+            Card x = table.get(i);
+            if(x.getCharacter().substring(0,1).equals("S")){
+                for(int j = 0; j < ai.hand.size(); j++){
+                    Card y = ai.hand.get(j);
+                    if(y.getValue() == x.getValue()){
+                        capture(j,i, ai);
+                        return;
+                    }
+                }
+            }
+        }
     }
 }
